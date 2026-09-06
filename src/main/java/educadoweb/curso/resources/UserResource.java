@@ -1,21 +1,36 @@
 package educadoweb.curso.resources;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import educadoweb.curso.entities.User;
+import educadoweb.curso.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
 
+    @Autowired 
+    private UserService services;
+
     @GetMapping
-    public ResponseEntity<User> findAll()
+    public ResponseEntity<List<User>> findAll()
     {
-        User  u = new User(1, "RAFAEL", "rafael@gmail.com", "11-98877-4565", "1234");
-        return ResponseEntity.ok().body(u);
+        List<User> list =  services.findAll();
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<User> findByid(@PathVariable  Long id){
+        User obj = services.findByid(id);
+        return ResponseEntity.ok().body(obj);
     }
     
 }
