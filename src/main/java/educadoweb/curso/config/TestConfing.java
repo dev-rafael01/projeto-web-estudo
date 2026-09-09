@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import educadoweb.curso.entities.Category;
 import educadoweb.curso.entities.Order;
 import educadoweb.curso.entities.User;
 import educadoweb.curso.entities.enums.OrderStatus;
+import educadoweb.curso.repositories.CategoryRepository;
 import educadoweb.curso.repositories.OrderRepository;
 import educadoweb.curso.repositories.UserRepository;
 
@@ -22,10 +24,17 @@ public class TestConfing implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired 
     private OrderRepository orderRepository;
+    @Autowired 
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception 
     {
+
+        Category cat1 = new Category(0, "Electronics"); 
+        Category cat2 = new Category(0, "Books"); 
+        Category cat3 = new Category(0, "Computers");
+        
         
         User u1 = new User(0, "Maria Brown", "maria@gmail.com", "988888888", "123456");
         User u3 = new User(0, "Rafael Santos", "rafael@gmnail.com", "96666666", "123456"); 
@@ -38,6 +47,8 @@ public class TestConfing implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2, u3));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        
         
         
         
