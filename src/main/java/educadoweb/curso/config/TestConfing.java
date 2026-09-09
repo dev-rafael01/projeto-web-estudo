@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import educadoweb.curso.entities.Order;
 import educadoweb.curso.entities.User;
+import educadoweb.curso.entities.enums.OrderStatus;
 import educadoweb.curso.repositories.OrderRepository;
 import educadoweb.curso.repositories.UserRepository;
 
@@ -30,9 +31,9 @@ public class TestConfing implements CommandLineRunner {
         User u3 = new User(0, "Rafael Santos", "rafael@gmnail.com", "96666666", "123456"); 
         User u2 = new User(0, "Alex Green", "alex@gmail.com", "977777777", "123456");
         
-        Order o1 = new Order(0, Instant.parse("2019-06-20T19:53:07Z"), u1); 
-        Order o2 = new Order(0, Instant.parse("2019-07-21T03:42:10Z"), u2); 
-        Order o3 = new Order(0, Instant.parse("2019-07-22T15:21:22Z"), u1); 
+        Order o1 = new Order(0, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.AGUARDANDO_PAGAMENTO, u1); 
+        Order o2 = new Order(0, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.PAGO, u2); 
+        Order o3 = new Order(0, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.PAGO, u1); 
     
 
         userRepository.saveAll(Arrays.asList(u1, u2, u3));
