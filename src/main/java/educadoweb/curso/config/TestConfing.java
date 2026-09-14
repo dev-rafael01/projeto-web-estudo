@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import educadoweb.curso.entities.Category;
 import educadoweb.curso.entities.Order;
 import educadoweb.curso.entities.OrderItem;
+import educadoweb.curso.entities.Payment;
 import educadoweb.curso.entities.Product;
 import educadoweb.curso.entities.User;
 import educadoweb.curso.entities.enums.OrderStatus;
@@ -38,21 +39,20 @@ public class TestConfing implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception 
     {
+        Category cat1 = new Category(0, "Electronics"); 
+        Category cat2 = new Category(0, "Books"); 
+        Category cat3 = new Category(0, "Computers");
 
-       Product p1 = new Product(0, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, ""); 
+        Product p1 = new Product(0, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, ""); 
         Product p2 = new Product(0, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, ""); 
         Product p3 = new Product(0, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, ""); 
         Product p4 = new Product(0, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, ""); 
         Product p5 = new Product(0, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 
-        Category cat1 = new Category(0, "Electronics"); 
-        Category cat2 = new Category(0, "Books"); 
-        Category cat3 = new Category(0, "Computers");
-        
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));      
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));       
-        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         
-
+        
         p1.getCategories().add(cat2);
         p2.getCategories().add(cat1);
         p2.getCategories().add(cat3);
@@ -81,6 +81,13 @@ public class TestConfing implements CommandLineRunner {
 
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        Payment pay1 = new Payment(0, Instant.parse("2019-06-20T21:53:07Z"), o1);
+        o1.setPayment(pay1);
+
+        orderRepository.save(o1);
+
+
         
         
         
